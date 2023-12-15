@@ -8,9 +8,9 @@ vim.keymap.set("n", "<leader>ex", ":Ex<CR>", {noremap = true})
 -- Open terminal
 vim.keymap.set("n", "<leader>to", ":terminal<CR>", {noremap = true})
 -- Open terminal (horizontal split)
-vim.keymap.set("n", "<leader>th", ":split|bottom|termianl<CR>", {noremap = true})
+vim.keymap.set("n", "<leader>th", ":split|terminal<CR>", {noremap = true})
 -- Open terminal (vertical split)
-vim.keymap.set("n", "<leader>tv", ":vsplit|right|terminal<CR>", {noremap = true})
+vim.keymap.set("n", "<leader>tv", ":vsplit|terminal<CR>", {noremap = true})
 -- Open terminal in new tab
 vim.keymap.set("n", "<leader>tat", ":tabnew|terminal<CR>", {noremap = true})
 -- Open a new tab
@@ -28,7 +28,7 @@ vim.keymap.set("n", "<leader>tac", ":tabclose<CR>", {noremap = true})
 -- Split window (horizontal)
 vim.keymap.set("n", "<leader>wnh", "<c-w>n", {noremap = true})
 -- Split window (vertical)
-vim.keymap.set("n", "<leader>wnv", "<c-w>v",{noremap = true})
+vim.keymap.set("n", "<leader>wnv", ":vnew<CR>",{noremap = true})
 -- Cycle window 
 vim.keymap.set("n", "<leader>ww", "<c-w>w", {noremap = true})
 -- Cycle window left
@@ -100,7 +100,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
         vim.bo[ev.buf].omnifunc = "v:lua.vim.lsp.omnifunc"        
         local opts = {buffer = ev.buf}
 
-        vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {noremap = true})
+        vim.keymap.set("n", "<leader>cn", vim.lsp.buf.rename, {noremap = true})
         vim.keymap.set("n", "<leader>ca", vim.lsp.buf.code_action, {noremap = true})
         vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {noremap = true})
         vim.keymap.set("n", "<leader>gm", vim.lsp.buf.implementation, {noremap = true})

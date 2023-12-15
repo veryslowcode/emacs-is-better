@@ -16,6 +16,10 @@ vim.wo.number = true
 -- Theme
 vim.cmd.colorscheme "nightfox"
 
+-- Window split
+vim.opt.splitright = true
+vim.opt.splitbelow = true
+
 -- Netrw
 vim.g.netrw_banner = 0
 
