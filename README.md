@@ -1,10 +1,28 @@
-# Minimal Neovim Config
+# Neovim Configuration
 
-This is my personal configuration for Neovim. It is very slim, but works for me.
+This is a minimal Neovim configuration that I personally use.
+
+>[!NOTE]
+> This project is not updated regularly.
+
+## Dependencies
+
+- [Packer](https://github.com/wbthomason/packer.nvim)
+- [Telescrope](https://github.com/nvim-telescope/telescope.nvim)
+- [Nvim-Lspconfig](https://github.com/neovim/nvim-lspconfig)
+- [Mason](https://github.com/williamboman/mason.nvim)
+- [Mason-Lspconfig](https://github.com/williamboman/mason-lspconfig.nvim)
+- [Nvim-Cmp](https://github.com/hrsh7th/nvim-cmp)
+- [Comment](https://github.com/numToStr/Comment.nvim)
+- [Nightfox](https://github.com/EdenEast/nightfox.nvim)
 
 ## Setup
 
 Just clone this repo as nvim into the directory that Neovim is expecting your 
-configuration files to be. This is most likely `~/.config/` on linux/mac-os or 
-`$HOME\AppData\Local` on Windows.
+configuration files to be. 
 
+### Linux/MacOS
+`~/.config/`
+
+### Windows
+`$HOME\AppData\Local`
