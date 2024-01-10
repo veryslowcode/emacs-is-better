@@ -18,11 +18,11 @@ This is a minimal Neovim configuration that I personally use.
 
 ## Setup
 
-Just clone this repo as nvim into the directory that Neovim is expecting your 
+Just clone this repo as `nvim` into the directory that Neovim is expecting your 
 configuration files to be. 
 
 ### Linux/MacOS
-`~/.config/`
+`~/.config/nvim`
 
 ### Windows
-`$HOME\AppData\Local`
+`$HOME\AppData\Local\nvim`
