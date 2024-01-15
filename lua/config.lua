@@ -23,6 +23,7 @@ require("mason-lspconfig").setup()
 require("cmp_nvim_lsp").setup()
 local lspconfig = require("lspconfig")
 --- Add language servers here
+lspconfig.pylsp.setup {}
 lspconfig.rust_analyzer.setup {
     settings = { ["rust-analyzer"] = {}}
 }
