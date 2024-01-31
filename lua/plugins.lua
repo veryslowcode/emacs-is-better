@@ -34,6 +34,8 @@ return require("packer").startup(function(use)
     use "neovim/nvim-lspconfig"
     use {"williamboman/mason.nvim",
         "williamboman/mason-lspconfig.nvim"}
+    -- Debugging
+    use "mfussenegger/nvim-dap"
     -- Code completion
     use {"hrsh7th/nvim-cmp",
         "hrsh7th/cmp-nvim-lsp"}

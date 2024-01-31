@@ -1,10 +1,14 @@
 vim.g.mapleader = "\\"
 vim.g.maplocalleader = "\\"
 
--- Normal Mode Mappings
---
+-- File/Explorer Mappings
+-- (normal mode) 
 -- Open explorer
 vim.keymap.set("n", "<leader>ex", ":Ex<CR>", {noremap = true})
+
+
+-- Terminal Mappings
+-- (normal mode)
 -- Open terminal
 vim.keymap.set("n", "<leader>to", ":terminal<CR>", {noremap = true})
 -- Open terminal (horizontal split)
@@ -13,6 +17,14 @@ vim.keymap.set("n", "<leader>th", ":split|terminal<CR>", {noremap = true})
 vim.keymap.set("n", "<leader>tv", ":vsplit|terminal<CR>", {noremap = true})
 -- Open terminal in new tab
 vim.keymap.set("n", "<leader>tat", ":tabnew|terminal<CR>", {noremap = true})
+
+-- (terminal mode)
+-- ESC terminal mode
+vim.keymap.set("t", "<ESC>", "<c-\\><c-n>", {noremap = true})
+
+
+-- Tab Mappings
+-- (normal mode) 
 -- Open a new tab
 vim.keymap.set("n", "<leader>tao", ":tabnew|Ex<CR>", {noremap = true})
 -- First tab
@@ -25,6 +37,10 @@ vim.keymap.set("n", "<leader>tap", ":-tabnext<CR>", {noremap = true})
 vim.keymap.set("n", "<leader>tae", ":tabnext$<CR>", {noremap = true})
 -- Close tab
 vim.keymap.set("n", "<leader>tac", ":tabclose<CR>", {noremap = true})
+
+
+-- Window Mappings
+-- (normal mode)
 -- Split window (horizontal)
 vim.keymap.set("n", "<leader>wnh", "<c-w>n", {noremap = true})
 -- Split window (vertical)
@@ -37,12 +53,20 @@ vim.keymap.set("n", "<leader>wh", "<c-w>h", {noremap = true})
 vim.keymap.set("n", "<leader>wl", "<c-w>l", {noremap = true})
 -- Quit the current window
 vim.keymap.set("n", "<leader>wq", "<c-w>q", {noremap = true})
+
+
+-- Buffer Mappings
+-- (normal mode)
 -- Previous buffer
 vim.keymap.set("n", "<leader>bp", ":bprevious<CR>", {noremap = true})
 -- Next buffer
 vim.keymap.set("n", "<leader>bn", ":bnext<CR>", {noremap = true})
 -- Delete buffer
 vim.keymap.set("n", "<leader>bd", ":bdelete!<CR>", {noremap = true})
+
+
+-- Movement/Text Mappings
+-- (normal mode)
 -- Undo
 vim.keymap.set("n", "<leader>u", ":u<CR>", {noremap = true})
 -- Redo
@@ -53,10 +77,16 @@ vim.keymap.set("n", "<leader>p", [["_d]])
 vim.keymap.set("n", "<leader>wd", "<C-d>zz", {noremap = true})
 -- Scroll up with fixed cursor
 vim.keymap.set("n", "<leader>wu", "<C-u>zz", {noremap = true})
--- Toggle comments
---[[ Set in configs under Setup Code Comments section ]]
 
--- Telescope Mappings (normal mode)
+-- (visual mode)
+-- Move line up 
+vim.keymap.set("v", "<leader>u", ":m-2<CR>gv=gv", {noremap=true})
+-- Move line down
+vim.keymap.set("v", "<leader>d", ":m+1<CR>gv=gv", {noremap=true})
+
+
+-- Telescope Mappings
+-- (normal mode)
 local builtin = require("telescope.builtin")
 -- Show open buffers
 vim.keymap.set("n", "<leader>fb", builtin.buffers, {})
@@ -71,7 +101,9 @@ vim.keymap.set("n", "<leader>fs", function()
 	builtin.grep_string({search = vim.fn.input("Grep > ")})
 end, {})
 
--- Auto complete (normal mode)
+
+-- Auto Complete Mappings
+-- (normal mode)
 local cmp = require("cmp")
 cmp.setup({
     mapping = cmp.mapping.preset.insert({
@@ -85,14 +117,15 @@ cmp.setup({
     })
 })
 
--- Diagnostic Mappings (normal mode)
---
+-- Diagnostic Mappings
+-- (normal mode)
 vim.keymap.set("n", "<leader>df", vim.diagnostic.open_float, {noremap = true})
 vim.keymap.set("n", "<leader>dp", vim.diagnostic.goto_prev, {noremap = true})
 vim.keymap.set("n", "<leader>dn", vim.diagnostic.goto_next, {noremap = true})
 
--- LSP Mappings (normal mode)
---
+
+-- LSP Mappings
+-- (normal mode)
 vim.api.nvim_create_autocmd("LspAttach", {
     group = vim.api.nvim_create_augroup('UserLspConfig', {}),
 
@@ -113,16 +146,9 @@ vim.api.nvim_create_autocmd("LspAttach", {
     end
 })
 
--- Visual Mode Mappings
---
--- Move line up 
-vim.keymap.set("v", "<leader>u", ":m-2<CR>gv=gv", {noremap=true})
--- Move line down
-vim.keymap.set("v", "<leader>d", ":m+1<CR>gv=gv", {noremap=true})
--- Toggle Comments
---[[ Set in configs under Setup Code Comments section ]]
 
--- Terminal Mode Mappings
---
--- ESC terminal mode
-vim.keymap.set("t", "<ESC>", "<c-\\><c-n>", {noremap = true})
+-- Debugger Mappings
+-- (normal mode)
+local dap = require("dap")
+vim.keymap.set("n", "<leader>tb", dap.toggle_breakpoint, {noremap = true})
+vim.keymap.set("n", "<leader>ct", dap.continue, {noremap = true})
