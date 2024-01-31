@@ -13,13 +13,29 @@ This is a minimal Neovim configuration that I personally use.
 - [Mason](https://github.com/williamboman/mason.nvim)
 - [Mason-Lspconfig](https://github.com/williamboman/mason-lspconfig.nvim)
 - [Nvim-Cmp](https://github.com/hrsh7th/nvim-cmp)
+<<<<<<< HEAD
 - [Comment](https://github.com/numToStr/Comment.nvim)
 - [Nightfox](https://github.com/EdenEast/nightfox.nvim)
+=======
+- [Nvim-Dap](https://github.com/mfussenegger/nvim-dap)
+- [Nvim-Dap-Python](https://github.com/mfussenegger/nvim-dap-python)
+- [Comment](https://github.com/numToStr/Comment.nvim)
+- [Catppuccin](https://github.com/catppuccin/nvim)
+>>>>>>> 1fedb75 (Updated readme to include changes from remote and updated dependencies.)
 
 ## Setup
 
 Just clone this repo as `nvim` into the directory that Neovim is expecting your 
 configuration files to be. 
+<<<<<<< HEAD
+=======
+
+### Linux/MacOS
+`~/.config/nvim`
+
+### Windows
+`$HOME\AppData\Local\nvim`
+>>>>>>> 1fedb75 (Updated readme to include changes from remote and updated dependencies.)
 
 ### Linux/MacOS
 `~/.config/nvim`

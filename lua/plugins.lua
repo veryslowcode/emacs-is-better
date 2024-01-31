@@ -25,7 +25,7 @@ return require("packer").startup(function(use)
 	-- Plugins
 	-- Telescope for fuzzy find
 	use {"nvim-telescope/telescope.nvim",
-	requires = {{"nvim-lua/plenary.nvim"}}}
+	    requires = {{"nvim-lua/plenary.nvim"}}}
 	-- Theme
     use { "catppuccin/nvim", as = "catppuccin" }
     -- Treesitter for syntax highlighting
@@ -36,6 +36,9 @@ return require("packer").startup(function(use)
         "williamboman/mason-lspconfig.nvim"}
     -- Debugging
     use "mfussenegger/nvim-dap"
+    use {"rcarriga/nvim-dap-ui",
+        requires = {"mfussenegger/nvim-dap"}}
+    use 'mfussenegger/nvim-dap-python'
     -- Code completion
     use {"hrsh7th/nvim-cmp",
         "hrsh7th/cmp-nvim-lsp"}
