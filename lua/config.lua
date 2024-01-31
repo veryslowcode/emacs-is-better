@@ -6,10 +6,10 @@ require("catppuccin").setup({
 -- Setup Treesitter for auto-
 -- matic syntax highlighting
 require("nvim-treesitter.configs").setup({
-    -- Don't install parsers synchronously
-    sync_install = false,
-    -- Don't automatically install parsers
-    auto_install = false,
+    -- Install parsers synchronously
+    sync_install = true,
+    -- Automatically install parsers
+    auto_install = true,
 
     highlight = { enable = true },
     additional_vim_regex_highlighting = false
@@ -17,7 +17,12 @@ require("nvim-treesitter.configs").setup({
 
 -- Setup LSP
 require("mason").setup()
-require("mason-lspconfig").setup()
+require("mason-lspconfig").setup({
+    -- Additional languages as necessary
+    ensure_installed = {
+        "rust_analyzer", "pylsp"
+    }
+})
 require("cmp_nvim_lsp").setup()
 local lspconfig = require("lspconfig")
 --- Add language servers here
