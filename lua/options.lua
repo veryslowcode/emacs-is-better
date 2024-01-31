@@ -14,7 +14,7 @@ vim.opt.scrolloff = 10
 vim.wo.number = true
 
 -- Theme
-vim.cmd.colorscheme "nightfox"
+vim.cmd.colorscheme "catppuccin"
 
 -- Window split
 vim.opt.splitright = true

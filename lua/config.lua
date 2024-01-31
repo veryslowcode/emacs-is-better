@@ -1,8 +1,6 @@
--- Setup Nightfox
-require("nightfox").setup({
-    options = {
-        transparent = true
-    }
+-- Setup Catppuccin 
+require("catppuccin").setup({
+    flavour = "mocha"
 })
 
 -- Setup Treesitter for auto-

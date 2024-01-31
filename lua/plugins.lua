@@ -27,7 +27,7 @@ return require("packer").startup(function(use)
 	use {"nvim-telescope/telescope.nvim",
 	requires = {{"nvim-lua/plenary.nvim"}}}
 	-- Theme
-    use "EdenEast/nightfox.nvim"
+    use { "catppuccin/nvim", as = "catppuccin" }
     -- Treesitter for syntax highlighting
     use "nvim-treesitter/nvim-treesitter"
     -- Mason for LSP integration
