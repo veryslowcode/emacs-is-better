@@ -20,16 +20,17 @@ require("mason").setup()
 require("mason-lspconfig").setup({
     -- Additional languages as necessary
     ensure_installed = {
-        "rust_analyzer", "pylsp"
+        "rust_analyzer", "pylsp", "lua_ls"
     }
 })
 require("cmp_nvim_lsp").setup()
 local lspconfig = require("lspconfig")
 --- Add language servers here
-lspconfig.pylsp.setup {}
 lspconfig.rust_analyzer.setup {
     settings = { ["rust-analyzer"] = {}}
 }
+lspconfig.pylsp.setup {}
+lspconfig.lua_ls.setup {}
 
 -- Setup Code Comments
 require("Comment").setup({

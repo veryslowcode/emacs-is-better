@@ -7,8 +7,8 @@ local require_packer = function()
 	local path = api.stdpath("data").."/site/pack/packer/start/packer.nvim"
 
 	if api.empty(api.glob(path)) > 0 then
-		api.system({ "git", "clone", "--depth", "1", 
-		  "https://github.com/wbthomason/packer.nvim", 
+		api.system({ "git", "clone", "--depth", "1",
+		  "https://github.com/wbthomason/packer.nvim",
 	           path})
 
 		vim.cmd [[packadd packer.nvim]]
