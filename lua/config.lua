@@ -52,7 +52,7 @@ cmp.setup({
     }
 })
 
--- Debugging
+-- Setup Debugging
 local dap, dapui = require("dap"), require("dapui")
 dap.listeners.before.attach.dapui_config = function()
   dapui.open()
@@ -69,3 +69,8 @@ end
 
 local debugpy_path = "" -- Change this to your debugpy location
 require("dap-python").setup(debugpy_path)
+
+-- Setup Alpha
+require("alpha").setup(
+    require"alpha.themes.dashboard".config
+)

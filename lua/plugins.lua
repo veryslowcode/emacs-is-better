@@ -44,6 +44,8 @@ return require("packer").startup(function(use)
         "hrsh7th/cmp-nvim-lsp"}
     -- Code Comments
     use "numToStr/Comment.nvim"
+    -- Dashboard/Greeter
+    use "goolord/alpha-nvim"
 	-- Automatically sync plugins
 	if bootstrap then
 		require("packer").sync()

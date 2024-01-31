@@ -17,6 +17,7 @@ This is a minimal Neovim configuration that I personally use.
 - [Nvim-Dap-Python](https://github.com/mfussenegger/nvim-dap-python)
 - [Comment](https://github.com/numToStr/Comment.nvim)
 - [Catppuccin](https://github.com/catppuccin/nvim)
+- [Alpha](https://github.com/goolord/alpha-nvim)
 
 ## Setup
 
