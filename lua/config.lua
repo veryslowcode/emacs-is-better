@@ -20,7 +20,7 @@ require("mason").setup()
 require("mason-lspconfig").setup({
     -- Additional languages as necessary
     ensure_installed = {
-        "rust_analyzer", "pylsp", "lua_ls"
+        "rust_analyzer", "pylsp", "lua_ls", "omnisharp"
     }
 })
 require("cmp_nvim_lsp").setup()
@@ -31,6 +31,7 @@ lspconfig.rust_analyzer.setup {
 }
 lspconfig.pylsp.setup {}
 lspconfig.lua_ls.setup {}
+lspconfig.omnisharp.setup {}
 
 -- Setup Code Comments
 require("Comment").setup({
