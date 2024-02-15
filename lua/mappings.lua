@@ -152,3 +152,7 @@ vim.api.nvim_create_autocmd("LspAttach", {
 local dap = require("dap")
 vim.keymap.set("n", "<leader>tb", dap.toggle_breakpoint, {noremap = true})
 vim.keymap.set("n", "<leader>ct", dap.continue, {noremap = true})
+vim.keymap.set("n", "<leader>si", dap.step_into, {noremap = true})
+vim.keymap.set("n", "<leader>sv", dap.step_over, {noremap = true})
+vim.keymap.set("n", "<leader>so", dap.step_out, {noremap = true})
+vim.keymap.set("n", "<leader>st", dap.disconnect, {noremap = true})
