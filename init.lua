@@ -1,5 +1,5 @@
 require("plugins")
+require("functions")
 require("config")
 require("mappings")
 require("options")
-

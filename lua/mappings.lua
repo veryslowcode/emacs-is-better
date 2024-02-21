@@ -156,3 +156,7 @@ vim.keymap.set("n", "<leader>si", dap.step_into, {noremap = true})
 vim.keymap.set("n", "<leader>sv", dap.step_over, {noremap = true})
 vim.keymap.set("n", "<leader>so", dap.step_out, {noremap = true})
 vim.keymap.set("n", "<leader>st", dap.disconnect, {noremap = true})
+
+-- Global Functions
+-- (normal mode)
+vim.keymap.set("n", "<leader>bdn", vim.g.dotnet_build, {noremap = true})
