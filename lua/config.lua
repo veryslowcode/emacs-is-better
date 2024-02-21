@@ -45,6 +45,15 @@ require("Comment").setup({
     }
 })
 
+-- Setup Telescope
+require('telescope').setup({
+    defaults = {
+        path_display = {
+            "truncate"
+        }
+    }
+})
+
 -- Setup Auto complete
 local cmp = require("cmp")
 cmp.setup({
@@ -90,7 +99,8 @@ end
 
 local dap_python = require("dap-python")
 
--- Global python
+-- Python
+-- Global environment
 dap_python.setup("python")
 
 -- Static environment
@@ -102,6 +112,30 @@ dap_python.setup("python")
 -- dap_python.resolve_python = function()
 --     return vim.fn.input("Environment: ", vim.fn.getcwd().."", "file")
 -- end
+
+-- C#
+dap.adapters.coreclr = {
+    type = "executable",
+    command = "netcoredbg.exe",
+    args = {"--interpreter=vscode"},
+    options = {
+        detached = false,
+        cwd = vim.fn.getcwd()
+    }
+}
+
+dap.configurations.cs = {
+    {
+        type = "coreclr",
+        name = "launch - netcoredbg",
+        request = "launch",
+        program = function()
+            return vim.fn.input("EXE/DLL: ", vim.fn.getcwd() .. "/bin/Debug/", "file")
+        end,
+        console = "integratedTerminal",
+        stopAtEntry = true,
+    }
+}
 
 -- Setup Alpha
 require("alpha").setup(
