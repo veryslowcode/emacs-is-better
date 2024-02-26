@@ -134,6 +134,8 @@ dap.configurations.cs = {
         end,
         console = "integratedTerminal",
         stopAtEntry = true,
+        justMyCode = false,
+        cwd = vim.fn.getcwd()
     }
 }
 
