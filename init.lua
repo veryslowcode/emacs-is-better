@@ -175,11 +175,12 @@ vim.opt.splitbelow = true
 
 -- Netrw
 vim.g.netrw_banner = 0
+vim.g.netrw_liststyle = 3
 
 -- Folds
 vim.opt.foldmethod = "marker"
 
--- Shell (Uncomment for using powershell)
+-- Shell
 if vim.loop.os_uname().sysname == "Windows_NT" then
     vim.opt.shell = "powershell"
     vim.opt.shellquote = "\""
@@ -187,6 +188,8 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
     vim.opt.shellredir = "2>&1 | Out-File -Encoding UTF8 %s"
     vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s"
 end
+vim.api.nvim_command("autocmd TermOpen * setlocal nonumber")
+vim.api.nvim_command("autocmd TermEnter * setlocal signcolumn=no")
 -- }}}
 
 -- Mappings {{{
