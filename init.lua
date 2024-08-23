@@ -29,7 +29,6 @@ require("packer").startup(function(use)
     -- Language tools
     use "numToStr/Comment.nvim"
     use "lukas-reineke/indent-blankline.nvim"
-    use "nvim-treesitter/nvim-treesitter"
     -- Autocompletion
     use {
         "hrsh7th/nvim-cmp",
@@ -71,11 +70,6 @@ local lspconfig = require("lspconfig")
 -- Setup Language tools
 require("Comment").setup()
 require("ibl").setup() -- Blank line
-require("nvim-treesitter.configs").setup {
-    highlight = {
-        enable = true
-    }
-}
 
 -- Setup Autocomplete
 local cmp = require("cmp")
