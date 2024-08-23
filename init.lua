@@ -45,13 +45,15 @@ require("packer").startup(function(use)
     }
 	-- Theme
 	use {
-        "catppuccin/nvim", 
+        "catppuccin/nvim",
         as = "catppuccin"
     }
 	-- Dashboard/Greeter
 	use "goolord/alpha-nvim"
     -- Status line
     use "nvim-lualine/lualine.nvim"
+    -- Version control
+    use "FabijanZulj/blame.nvim"
 	-- Automatically sync plugins
 	if bootstrap then
 		require("packer").sync()
@@ -120,7 +122,7 @@ dashboard.section.header.val = {
     "╚═╝░░╚══╝╚══════╝░╚════╝░░░░╚═╝░░░╚═╝╚═╝░░░░░╚═╝"
 }
 
-function getConfig()
+local function getConfig()
     if vim.loop.os_uname().sysname == "Windows_NT" then
         return ":e ~/AppData/Local/nvim/init.lua<CR>"
     else
@@ -153,6 +155,8 @@ require("lualine").setup {
         icons_enabled = false
     }
 }
+-- Setup Version control
+require("blame").setup()
 -- }}}
 
 -- Options {{{
