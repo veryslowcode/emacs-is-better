@@ -96,9 +96,14 @@ cmp.setup {
 -- Setup Search & Fuzzy find
 require('telescope').setup({
     defaults = {
+        layout_config = {
+            vertical = { width = 0.75 },
+            preview_cutoff = 1
+        },
+        layout_strategy = "vertical",
         path_display = {
             "truncate"
-        }
+        },
     }
 })
 
