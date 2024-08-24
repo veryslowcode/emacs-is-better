@@ -230,7 +230,11 @@ require("lazy").setup({
                 sources = cmp.config.sources({
                     { name = "nvim_lsp" },
                     { name = "buffer" },
-                })
+                }),
+                window = {
+                    completion = cmp.config.window.bordered(),
+                    documentation = cmp.config.window.bordered(),
+                }
             }
         end,    
     },
@@ -246,7 +250,9 @@ require("lazy").setup({
             "williamboman/mason-lspconfig.nvim"
         },
         config = function()
-            require("mason").setup()
+            require("mason").setup({
+                ui = { border = "rounded" }
+            })
             require("mason-lspconfig").setup()
             local lspconfig = require("lspconfig")
             -- Configure languages
