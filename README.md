@@ -19,6 +19,8 @@ This is the minimal Neovim configuration that I personally use.
 - [Nvim Cmp](https://github.com/hrsh7th/nvim-cmp)
 - [Mason](https://github.com/williamboman/mason.nvim)
 - [LSP Config](https://github.com/neovim/nvim-lspconfig)
+- [Nvim Dap](https://github.com/mfussenegger/nvim-dap)
+- [Nvim Dap UI](https://github.com/rcarriga/nvim-dap-ui)
 
 ## Setup
 
