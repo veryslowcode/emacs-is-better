@@ -5,18 +5,20 @@ This is the minimal Neovim configuration that I personally use.
 >[!NOTE]
 > This project is not updated regularly.
 
-## Dependencies
+## Primary Dependencies
 
-- [Packer](https://github.com/wbthomason/packer.nvim)
-- [Mason](https://github.com/williamboman/mason.nvim)
-- [LSP Config](https://github.com/neovim/nvim-lspconfig)
+- [Lazy.nvim](https://github.com/folke/lazy.nvim)
+- [Catppuccin](https://github.com/catppuccin/nvim)
+- [Alpha](https://github.com/goolord/alpha-nvim)
+- [Telescope](https://github.com/nvim-telescope/telescope.nvim)
+- [Lua Line](https://github.com/nvim-lualine/lualine.nvim)
+- [Fidget](https://github.com/j-hui/fidget.nvim)
+- [Blame](https://github.com/FabijanZulj/blame.nvim)
 - [Comment](https://github.com/numToStr/Comment.nvim)
 - [Indent Blankline](https://github.com/lukas-reineke/indent-blankline.nvim)
 - [Nvim Cmp](https://github.com/hrsh7th/nvim-cmp)
-- [Lua Line](https://github.com/nvim-lualine/lualine.nvim)
-- [Telescope](https://github.com/nvim-telescope/telescope.nvim)
-- [Catppuccin](https://github.com/catppuccin/nvim)
-- [Alpha](https://github.com/goolord/alpha-nvim)
+- [Mason](https://github.com/williamboman/mason.nvim)
+- [LSP Config](https://github.com/neovim/nvim-lspconfig)
 
 ## Setup
 

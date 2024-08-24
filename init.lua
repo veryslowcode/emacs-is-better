@@ -1,165 +1,270 @@
--- Configure Packer & Add Plugins {{{
-local require_packer = function()
-	local api = vim.fn
-	local path = api.stdpath("data").."/site/pack/packer/start/packer.nvim"
+--      ___           ___           ___           ___     
+--     /\__\         /\  \         /\  \         |\__\    
+--    /:/  /        /::\  \       /::\  \        |:|  |   
+--   /:/  /        /:/\:\  \     /:/\:\  \       |:|  |   
+--  /:/__/  ___   /::\~\:\  \   /::\~\:\  \      |:|__|__ 
+--  |:|  | /\__\ /:/\:\ \:\__\ /:/\:\ \:\__\     /::::\__\
+--  |:|  |/:/  / \:\~\:\ \/__/ \/_|::\/:/  /    /:/~~/~   
+--  |:|__/:/  /   \:\ \:\__\      |:|::/  /    /:/  /     
+--   \::::/__/     \:\ \/__/      |:|\/__/     \/__/      
+--    ~~~~          \:\__\        |:|  |                  
+--                   \/__/         \|__|                  
+--      ___           ___       ___           ___         
+--     /\  \         /\__\     /\  \         /\__\        
+--    /::\  \       /:/  /    /::\  \       /:/ _/_       
+--   /:/\ \  \     /:/  /    /:/\:\  \     /:/ /\__\      
+--  _\:\~\ \  \   /:/  /    /:/  \:\  \   /:/ /:/ _/_     
+-- /\ \:\ \ \__\ /:/__/    /:/__/ \:\__\ /:/_/:/ /\__\    
+-- \:\ \:\ \/__/ \:\  \    \:\  \ /:/  / \:\/:/ /:/  /    
+--  \:\ \:\__\    \:\  \    \:\  /:/  /   \::/_/:/  /     
+--   \:\/:/  /     \:\  \    \:\/:/  /     \:\/:/  /      
+--    \::/  /       \:\__\    \::/  /       \::/  /       
+--     \/__/         \/__/     \/__/         \/__/        
+--      ___           ___           ___           ___     
+--     /\  \         /\  \         /\  \         /\  \    
+--    /::\  \       /::\  \       /::\  \       /::\  \   
+--   /:/\:\  \     /:/\:\  \     /:/\:\  \     /:/\:\  \  
+--  /:/  \:\  \   /:/  \:\  \   /:/  \:\__\   /::\~\:\  \ 
+-- /:/__/ \:\__\ /:/__/ \:\__\ /:/__/ \:|__| /:/\:\ \:\__\
+-- \:\  \  \/__/ \:\  \ /:/  / \:\  \ /:/  / \:\~\:\ \/__/
+--  \:\  \        \:\  /:/  /   \:\  /:/  /   \:\ \:\__\  
+--   \:\  \        \:\/:/  /     \:\/:/  /     \:\ \/__/  
+--    \:\__\        \::/  /       \::/__/       \:\__\    
+--     \/__/         \/__/         ~~            \/__/    
 
-	if api.empty(api.glob(path)) > 0 then
-		api.system({ "git", "clone", "--depth", "1",
-		  "https://github.com/wbthomason/packer.nvim",
-	           path})
-
-		vim.cmd [[packadd packer.nvim]]
-		return true
-	end
-	return false
+-- Bootstrap lazy.nvim
+local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
+if not (vim.uv or vim.loop).fs_stat(lazypath) then
+  local lazyrepo = "https://github.com/folke/lazy.nvim.git"
+  local out = vim.fn.system({ 
+	"git", "clone", "--filter=blob:none", 
+	"--branch=stable", lazyrepo, lazypath,
+  })
+  if vim.v.shell_error ~= 0 then
+    vim.api.nvim_echo({
+      { "Failed to clone lazy.nvim:\n", "ErrorMsg" },
+      { out, "WarningMsg" },
+      { "\nPress any key to exit..." },
+    }, true, {})
+    vim.fn.getchar()
+    os.exit(1)
+  end
 end
+vim.opt.rtp:prepend(lazypath)
 
-local bootstrap = require_packer()
-require("packer").startup(function(use)
-    -- Package manager
-	use "wbthomason/packer.nvim"
-    -- LSP
-    use {
+-- Lazy.nvim & Plugin Configuration
+require("lazy").setup({
+  spec = {
+    -- Theme {{{
+    --
+    { "catppuccin/nvim", name = "catppuccin", priority = 1000,
+        config = function()
+            require("catppuccin").setup({
+                flavour = "mocha",
+                transparent_background = true,
+                no_italic = true,
+                no_bold = false,
+                no_underline = false,
+                styles = {
+                    keywords = { "bold" },
+                    types = { "bold" },
+                    operators = { "bold" },
+                },
+            })
+        end
+    },
+    --
+    -- }}}
+
+    -- Dashboard/Greeter {{{
+    --
+    {
+        "goolord/alpha-nvim",
+        config = function ()
+            local alpha = require("alpha")
+            local dashboard = require("alpha.themes.dashboard")
+
+            dashboard.section.header.val = {
+                [[      ___           ___                       ___     ]],
+                [[     /\__\         /\__\          ___        /\__\    ]],
+                [[    /::|  |       /:/  /         /\  \      /::|  |   ]],
+                [[   /:|:|  |      /:/  /          \:\  \    /:|:|  |   ]],
+                [[  /:/|:|  |__   /:/__/  ___      /::\__\  /:/|:|__|__ ]],
+                [[ /:/ |:| /\__\  |:|  | /\__\  __/:/\/__/ /:/ |::::\__\]],
+                [[ \/__|:|/:/  /  |:|  |/:/  / /\/:/  /    \/__/~~/:/  /]],
+                [[     |:/:/  /   |:|__/:/  /  \::/__/           /:/  / ]],
+                [[     |::/  /     \::::/__/    \:\__\          /:/  /  ]],
+                [[     /:/  /       ~~~~         \/__/         /:/  /   ]],
+                [[     \/__/                                   \/__/    ]],
+            }
+
+            local function getConfig()
+                if vim.loop.os_uname().sysname == "Windows_NT" then
+                    return ":e ~/AppData/Local/nvim/init.lua<CR>"
+                else
+                    return ":e ~/.config/nvim/init.lua<CR>"
+                end
+            end
+
+            dashboard.section.buttons.val = {
+                dashboard.button("n", "New file", ":ene <BAR> startinsert <CR>"),
+                dashboard.button("f", "Find file", ":cd $HOME | Telescope find_files<CR>"),
+                dashboard.button("e", "File Explorer", ":cd $HOME | :Ex<CR>"),
+                dashboard.button("r", "Recent", ":Telescope oldfiles<CR>"),
+                dashboard.button("c", "Configuration", getConfig()),
+                dashboard.button("s", "Search", ":Telescope live_grep<CR>"),
+                dashboard.button("q", "Quit", ":qa<CR>"),
+                -- Additional buttons
+            }
+
+            local version = vim.version()
+            dashboard.section.footer.val = {
+               "Vim, but better...",
+               "Version " .. version.major .. "." .. version.minor .. "." .. version.patch
+            }
+
+            alpha.setup(dashboard.opts)
+        end
+    },
+    --
+    -- }}}
+
+    -- File/Fuzzy Find {{{
+    --
+    {
+        "nvim-telescope/telescope.nvim", tag = "0.1.8",
+        dependencies = { "nvim-lua/plenary.nvim" },
+        config = function()
+            require("telescope").setup({
+                defaults = {
+                    layout_config = {
+                        vertical = { width = 0.75 },
+                        preview_cutoff = 1
+                    },
+                    layout_strategy = "vertical",
+                    path_display = {
+                        "truncate"
+                    },
+                }
+            })
+        end
+    },
+    --
+    -- }}}
+
+    -- Status Line {{{
+    --
+    {
+        "nvim-lualine/lualine.nvim",
+        config = function()
+            require("lualine").setup {
+                options = {
+                    icons_enabled = false
+                }
+            }
+        end
+    },
+    --
+    -- }}}
+
+    -- Notifications {{{
+    --
+    { 
+        "j-hui/fidget.nvim",
+        config = function()
+            require("fidget").setup({})
+        end
+    },
+    --
+    -- }}}
+
+    -- Version Control {{{
+    --
+    {
+        "FabijanZulj/blame.nvim",
+        config = function()
+            require("blame").setup()
+        end
+    },
+    --
+    -- }}}
+
+    -- Non-LSP Language Tools {{{
+    --
+    { 
+        "numToStr/Comment.nvim", 
+        config = function()
+            require("Comment").setup()
+        end
+    },
+    { 
+        "lukas-reineke/indent-blankline.nvim",
+        config = function()
+            require("ibl").setup()
+        end
+    },
+    --
+    -- }}}
+
+    -- Autocomplete {{{
+    --
+    {
+        "hrsh7th/nvim-cmp",
+        event = "InsertEnter",
+        dependencies = {
+          "hrsh7th/cmp-nvim-lsp",
+          "hrsh7th/cmp-buffer",
+          "hrsh7th/cmp-path",
+          "hrsh7th/cmp-cmdline",
+        },
+        config = function()
+            local cmp = require("cmp")
+            cmp.setup {
+                mapping = cmp.mapping.preset.insert({
+                  ['<C-b>'] = cmp.mapping.scroll_docs(-4),
+                  ['<C-f>'] = cmp.mapping.scroll_docs(4),
+                  ['<C-Space>'] = cmp.mapping.complete(),
+                  ['<C-e>'] = cmp.mapping.abort(),
+                  ['<CR>'] = cmp.mapping.confirm({ select = true })
+                }),
+                sources = cmp.config.sources({
+                    { name = "nvim_lsp" },
+                    { name = "buffer" },
+                })
+            }
+        end,    
+    },
+    --
+    -- }}}
+
+    -- LSP {{{
+    --
+    {
         "neovim/nvim-lspconfig",
-        requires = {
+        dependencies = {
             "williamboman/mason.nvim",
             "williamboman/mason-lspconfig.nvim"
-        }
-    }
-    -- Language tools
-    use "numToStr/Comment.nvim"
-    use "lukas-reineke/indent-blankline.nvim"
-    -- Autocompletion
-    use {
-        "hrsh7th/nvim-cmp",
-        requires = {
-            "hrsh7th/cmp-nvim-lsp",
-        }
-    }
-	-- Search & Fuzzy find
-	use {
-        "nvim-telescope/telescope.nvim",
-	    requires = {
-            "nvim-lua/plenary.nvim"
-        }
-    }
-	-- Theme
-	use {
-        "catppuccin/nvim",
-        as = "catppuccin"
-    }
-	-- Dashboard/Greeter
-	use "goolord/alpha-nvim"
-    -- Status line
-    use "nvim-lualine/lualine.nvim"
-    -- Version control
-    use "FabijanZulj/blame.nvim"
-	-- Automatically sync plugins
-	if bootstrap then
-		require("packer").sync()
-	end
-end)
--- }}}
-
--- Configure Plugins {{{
--- Setup LSP
-require("mason").setup()
-require("mason-lspconfig").setup()
-local lspconfig = require("lspconfig")
--- Configure languages
--- lspconfig.<LANG>.setup {}
-
--- Setup Language tools
-require("Comment").setup()
-require("ibl").setup() -- Blank line
-
--- Setup Autocomplete
-local cmp = require("cmp")
-cmp.setup {
-    mapping = cmp.mapping.preset.insert({
-      ['<C-b>'] = cmp.mapping.scroll_docs(-4),
-      ['<C-f>'] = cmp.mapping.scroll_docs(4),
-      ['<C-Space>'] = cmp.mapping.complete(),
-      ['<C-e>'] = cmp.mapping.abort(),
-      ['<CR>'] = cmp.mapping.confirm({ select = true })
-    }),
-    sources = cmp.config.sources({
-        { name = "nvim_lsp" },
-        { name = "buffer" },
-    })
-}
-
--- Setup Search & Fuzzy find
-require('telescope').setup({
-    defaults = {
-        layout_config = {
-            vertical = { width = 0.75 },
-            preview_cutoff = 1
         },
-        layout_strategy = "vertical",
-        path_display = {
-            "truncate"
-        },
-    }
+        config = function()
+            require("mason").setup()
+            require("mason-lspconfig").setup()
+            local lspconfig = require("lspconfig")
+            -- Configure languages
+            -- lspconfig.<LANG>.setup {}
+        end
+    },
+    --
+    -- }}}
+
+  },
+  checker = { enabled = true },
 })
 
--- Setup Theme 
-require("catppuccin").setup({
-    flavour = "mocha",
-    transparent_background = true
-})
+-- General Options {{{
+--
+vim.g.mapleader = "\\"
+vim.g.maplocalleader = "\\"
 
--- Setup Dashboard/Greeter
-local alpha = require("alpha")
-local dashboard = require("alpha.themes.dashboard")
-
-dashboard.section.header.val = {
-    "███╗░░██╗███████╗░█████╗░██╗░░░██╗██╗███╗░░░███╗",
-    "████╗░██║██╔════╝██╔══██╗██║░░░██║██║████╗░████║",
-    "██╔██╗██║█████╗░░██║░░██║╚██╗░██╔╝██║██╔████╔██║",
-    "██║╚████║██╔══╝░░██║░░██║░╚████╔╝░██║██║╚██╔╝██║",
-    "██║░╚███║███████╗╚█████╔╝░░╚██╔╝░░██║██║░╚═╝░██║",
-    "╚═╝░░╚══╝╚══════╝░╚════╝░░░░╚═╝░░░╚═╝╚═╝░░░░░╚═╝"
-}
-
-local function getConfig()
-    if vim.loop.os_uname().sysname == "Windows_NT" then
-        return ":e ~/AppData/Local/nvim/init.lua<CR>"
-    else
-        return ":e ~/.config/nvim/init.lua<CR>"
-    end
-end
-
-dashboard.section.buttons.val = {
-    dashboard.button("n", "New file", ":ene <BAR> startinsert <CR>"),
-    dashboard.button("f", "Find file", ":cd $HOME | Telescope find_files<CR>"),
-    dashboard.button("e", "File Explorer", ":cd $HOME | :Ex<CR>"),
-    dashboard.button("r", "Recent", ":Telescope oldfiles<CR>"),
-    dashboard.button("c", "Configuration", getConfig()),
-    dashboard.button("s", "Search", ":Telescope live_grep<CR>"),
-    dashboard.button("q", "Quit", ":qa<CR>"),
-    -- Additional buttons
-}
-
-local version = vim.version()
-dashboard.section.footer.val = {
-   "Vim, but better...",
-   "Version " .. version.major .. "." .. version.minor .. "." .. version.patch
-}
-
-alpha.setup(dashboard.opts)
-
--- Setup Status line
-require("lualine").setup {
-    options = {
-        icons_enabled = false
-    }
-}
--- Setup Version control
-require("blame").setup()
--- }}}
-
--- Options {{{
 -- Tab with 4 spaces
 vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
@@ -199,12 +304,11 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
 end
 vim.api.nvim_command("autocmd TermOpen * setlocal nonumber")
 vim.api.nvim_command("autocmd TermEnter * setlocal signcolumn=no")
+--
 -- }}}
 
 -- Mappings {{{
-vim.g.mapleader = "\\"
-vim.g.maplocalleader = "\\"
-
+--
 -- File/Explorer Mappings
 -- (normal mode) 
 -- Open explorer
@@ -271,4 +375,6 @@ vim.keymap.set("n", "<leader>td", vim.lsp.buf.type_definition, {desc = "[T]ype [
 vim.keymap.set("n", "<leader>ds", builtin.lsp_document_symbols, {desc = "[D]ocument [S]ymbols"})
 vim.keymap.set("n", "<leader>ws", builtin.lsp_dynamic_workspace_symbols, {desc = "[W]orkspace [S]ymbols"})
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {desc = "[R]e[N]ame"})
+--
 -- }}}
+
