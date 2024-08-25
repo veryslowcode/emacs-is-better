@@ -60,7 +60,6 @@ require("lazy").setup({
     { "catppuccin/nvim", name = "catppuccin", priority = 1000,
         config = function()
             require("catppuccin").setup({
-                flavour = "mocha",
                 flavour = "latte",
                 transparent_background = true,
                 no_italic = true,
@@ -170,11 +169,15 @@ require("lazy").setup({
 
     -- Notifications {{{
     --
-    { 
+    {
         "j-hui/fidget.nvim",
-        config = function()
-            require("fidget").setup({})
-        end
+        opts = {
+            notification = {
+                window = {
+                    winblend = 0
+                }
+            }
+        }
     },
     --
     -- }}}
@@ -331,6 +334,9 @@ require("lazy").setup({
 
   },
   checker = { enabled = true },
+  ui = {
+    border = "rounded"
+  },
 })
 
 -- General Options {{{
@@ -377,6 +383,12 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
 end
 vim.api.nvim_command("autocmd TermOpen * setlocal nonumber")
 vim.api.nvim_command("autocmd TermEnter * setlocal signcolumn=no")
+
+-- Add borders
+require("lspconfig.ui.windows").default_options.border = "rounded"
+vim.diagnostic.config{
+  float={border="rounded"}
+}
 --
 -- }}}
 
