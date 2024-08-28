@@ -57,19 +57,18 @@ require("lazy").setup({
   spec = {
     -- Theme {{{
     --
-    { "catppuccin/nvim", name = "catppuccin", priority = 1000,
+    { "rose-pine/neovim", name = "rose-pine",
         config = function()
-            require("catppuccin").setup({
-                flavour = "latte",
-                transparent_background = true,
-                no_italic = true,
-                no_bold = false,
-                no_underline = false,
-                styles = {
-                    keywords = { "bold" },
-                    types = { "bold" },
-                    operators = { "bold" },
-                },
+            require("rose-pine").setup({
+               variant = "dawn",
+               styles = {
+                    italic = false
+               },
+               palette = {
+                    dawn = {
+                        gold = "#B67A28"
+                    }
+               }
             })
         end
     },
@@ -360,7 +359,7 @@ vim.opt.scrolloff = 10
 vim.wo.number = true
 
 -- Theme
-vim.cmd.colorscheme "catppuccin"
+vim.cmd.colorscheme "rose-pine"
 
 -- Window split
 vim.opt.splitright = true
