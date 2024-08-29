@@ -372,6 +372,9 @@ vim.g.netrw_liststyle = 3
 -- Folds
 vim.opt.foldmethod = "marker"
 
+-- Copy & Paste
+vim.opt.clipboard = "unnamedplus" -- Always copy to system clipboard
+
 -- Shell
 if vim.loop.os_uname().sysname == "Windows_NT" then
     vim.opt.shell = "powershell"
