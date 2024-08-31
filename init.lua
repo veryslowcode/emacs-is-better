@@ -467,6 +467,7 @@ vim.keymap.set("n", "<leader>td", vim.lsp.buf.type_definition, {desc = "[T]ype [
 vim.keymap.set("n", "<leader>ds", builtin.lsp_document_symbols, {desc = "[D]ocument [S]ymbols"})
 vim.keymap.set("n", "<leader>ws", builtin.lsp_dynamic_workspace_symbols, {desc = "[W]orkspace [S]ymbols"})
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {desc = "[R]e[N]ame"})
+vim.keymap.set("n", "<leader>of", vim.diagnostic.open_float, {desc = "[O]pen [F]loat"})
 --
 -- }}}
 
