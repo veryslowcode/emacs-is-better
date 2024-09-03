@@ -8,7 +8,7 @@ This is the minimal Neovim configuration that I personally use.
 ## Primary Dependencies
 
 - [Lazy.nvim](https://github.com/folke/lazy.nvim)
-- [Catppuccin](https://github.com/catppuccin/nvim)
+- [Rosé Pine](https://github.com/rose-pine/neovim)
 - [Alpha](https://github.com/goolord/alpha-nvim)
 - [Telescope](https://github.com/nvim-telescope/telescope.nvim)
 - [Lua Line](https://github.com/nvim-lualine/lualine.nvim)
