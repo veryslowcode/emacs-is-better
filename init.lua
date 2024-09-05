@@ -454,6 +454,10 @@ vim.keymap.set("n", "<M-.>", "<c-w>5>", {desc = "Resize Window Left"})
 vim.keymap.set("n", "<M-p>", "<c-w>+", {desc = "Risize Window Increase"})
 vim.keymap.set("n", "<M-o>", "<c-w>-", {desc = "Resize Window Decrease"})
 
+-- Terminal Mappings
+-- (normal mode)
+vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", {desc = "Double escape exit terminal mode"})
+
 -- Buffer Mappings
 -- (normal mode)
 vim.keymap.set("n", "<leader>bp", ":bprevious<CR>", {desc = "[B]uffer [P]revious"})
