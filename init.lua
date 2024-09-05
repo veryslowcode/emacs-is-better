@@ -423,6 +423,30 @@ vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(
 --
 -- }}}
 
+-- Custom Functionality {{{
+--
+local delete_selection = function(selection)
+    vim.api.nvim_buf_delete(selection.bufnr, {force = true})
+end
+
+local find_buffers_override = function()
+    local builtin = require("telescope.builtin")
+    builtin.buffers({
+        initial_mode = "normal",
+        attach_mappings = function(buffnum, map)
+            local delete_buffer = function()
+                local state = require("telescope.actions.state")
+                local picker = state.get_current_picker(buffnum)
+                picker:delete_selection(delete_selection)
+            end
+            map("n", "db", delete_buffer, {desc = "[D]elete [B]uffer"})
+            return true
+        end
+    })
+end
+--
+-- }}}
+
 -- Mappings {{{
 --
 -- File/Explorer Mappings
@@ -479,7 +503,7 @@ vim.keymap.set("v", "<leader>d", ":m+1<CR>gv=gv", {desc = "Move line [D]own"})
 -- Telescope Mappings
 -- (normal mode)
 local builtin = require("telescope.builtin")
-vim.keymap.set("n", "<leader>fb", builtin.buffers, {desc = "[F]ind [B]uffers"})
+vim.keymap.set("n", "<leader>fb", find_buffers_override, {desc = "[F]ind [B]uffers"})
 vim.keymap.set("n", "<leader>ff", builtin.find_files, {desc = "[F]ind [F]iles"})
 vim.keymap.set("n", "<leader>fg", builtin.git_files, {desc = "[F]ind [G]it"})
 vim.keymap.set("n", "<leader>fl", builtin.live_grep, {desc = "[F]ind [L]ive"})
