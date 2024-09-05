@@ -36,8 +36,8 @@
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
 if not (vim.uv or vim.loop).fs_stat(lazypath) then
   local lazyrepo = "https://github.com/folke/lazy.nvim.git"
-  local out = vim.fn.system({ 
-	"git", "clone", "--filter=blob:none", 
+  local out = vim.fn.system({
+	"git", "clone", "--filter=blob:none",
 	"--branch=stable", lazyrepo, lazypath,
   })
   if vim.v.shell_error ~= 0 then
@@ -55,6 +55,7 @@ vim.opt.rtp:prepend(lazypath)
 -- Lazy.nvim & Plugin Configuration
 require("lazy").setup({
   spec = {
+
     -- Theme {{{
     --
     { "rose-pine/neovim", name = "rose-pine",
@@ -146,6 +147,21 @@ require("lazy").setup({
                     },
                 }
             })
+        end
+    },
+    --
+    -- }}}
+
+    -- Directory/File Management {{{
+    --
+    {
+        "nvim-telescope/telescope-file-browser.nvim",
+        dependencies = {
+            "nvim-telescope/telescope.nvim",
+            "nvim-lua/plenary.nvim"
+        },
+        config = function()
+            require("telescope").load_extension "file_browser"
         end
     },
     --
@@ -452,6 +468,9 @@ vim.keymap.set("n", "<leader>fl", builtin.live_grep, {desc = "[F]ind [L]ive"})
 vim.keymap.set("n", "<leader>fs", function()
 	builtin.grep_string({search = vim.fn.input("Grep > ")})
 end, {desc = "[F]ile [S]earch"})
+
+vim.keymap.set("n", "<leader>fe", ":Telescope file_browser<CR>", {desc = "[F]ile [E]xplorer"})
+vim.keymap.set("n", "<leader>fec", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", {desc = "[F]ile [E]xplorer [C]urrent"})
 
 -- Misc. Mappings
 -- (normal mode)
