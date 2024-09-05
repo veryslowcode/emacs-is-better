@@ -145,6 +145,11 @@ require("lazy").setup({
                     path_display = {
                         "truncate"
                     },
+                },
+                extensions = {
+                    file_browser = {
+                        hijack_netrw = true
+                    }
                 }
             })
         end
