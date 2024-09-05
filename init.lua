@@ -373,6 +373,9 @@ vim.opt.expandtab = true
 -- Incremental search
 vim.opt.incsearch = true
 
+-- Incremental command
+vim.opt.inccommand = "split"
+
 -- Ensure minimum lines shown
 vim.opt.scrolloff = 10
 
