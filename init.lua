@@ -444,6 +444,12 @@ vim.keymap.set("n", "<leader>wq", "<c-w>q", {desc = "[W]indow [Q]uit"})
 vim.keymap.set("n", "<leader>ww", "<c-w>w", {desc = "[W]indow cycle"})
 vim.keymap.set("n", "<leader>wh", "<c-w>h", {desc = "[W]indow left"})
 vim.keymap.set("n", "<leader>wl", "<c-w>l", {desc = "[W]indow right"})
+vim.keymap.set("n", "<leader>wj", "<c-w>j", {desc = "[W]indow down"})
+vim.keymap.set("n", "<leader>wk", "<c-w>k", {desc = "[W]indow up"})
+vim.keymap.set("n", "<M-,>", "<c-w>5<", {desc = "Risize Window Right"})
+vim.keymap.set("n", "<M-.>", "<c-w>5>", {desc = "Resize Window Left"})
+vim.keymap.set("n", "<M-p>", "<c-w>+", {desc = "Risize Window Increase"})
+vim.keymap.set("n", "<M-o>", "<c-w>-", {desc = "Resize Window Decrease"})
 
 -- Buffer Mappings
 -- (normal mode)
