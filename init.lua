@@ -424,6 +424,7 @@ vim.keymap.set("n", "<leader>ex", ":Ex<CR>", {desc = "[Ex]plore files"})
 -- Tab Mappings
 -- (normal mode) 
 vim.keymap.set("n", "<leader>tao", ":tabnew|Telescope file_browser<CR>", {desc = "[Ta]b [O]pen"})
+vim.keymap.set("n", "<leader>tto", ":tabnew|term<CR>", {desc = "[T]erminal [T]ab [O]pen"})
 vim.keymap.set("n", "<leader>tac", ":tabclose<CR>", {desc = "[Ta]b [C]lose"})
 vim.keymap.set("n", "<leader>tab", ":1tabnext<CR>", {desc = "[Ta]b [B]eginning"})
 vim.keymap.set("n", "<leader>tae", ":tabnext$<CR>", {desc = "[Ta]b [E]nd"})
