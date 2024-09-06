@@ -214,9 +214,33 @@ require("lazy").setup({
     -- Version Control {{{
     --
     {
-        "FabijanZulj/blame.nvim",
+        "NeogitOrg/neogit",
+        dependencies = {
+            "nvim-lua/plenary.nvim",
+            "sindrets/diffview.nvim",
+            "nvim-telescope/telescope.nvim",
+        },
         config = function()
-            require("blame").setup()
+            require("neogit").setup {
+                disable_hint = true
+            }
+        end
+    },
+    {
+        "lewis6991/gitsigns.nvim",
+        config = function()
+            require("gitsigns").setup {
+                signs = {
+                    add = {text = '+'},
+                    change = { text = '~' },
+                    delete = { text = '-' },
+                },
+                signs_staged = {
+                    add = { text = '+' },
+                    change = { text = '~' },
+                    delete = { text = '-' },
+                }
+            }
         end
     },
     --
@@ -456,6 +480,19 @@ end, {desc = "[F]ile [S]earch"})
 
 vim.keymap.set("n", "<leader>fe", ":Telescope file_browser<CR>", {desc = "[F]ile [E]xplorer"})
 vim.keymap.set("n", "<leader>fec", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", {desc = "[F]ile [E]xplorer [C]urrent"})
+
+-- Version Control Mappings
+-- (normal mode)
+vim.keymap.set("n", "<leader>ng", ":Neogit<CR>", {desc = "[N]eo [G]it"})
+vim.keymap.set("n", "<leader>hs", ":Gitsigns stage_hunk<CR>", {desc = "[H]unk [S]tage"})
+vim.keymap.set("n", "<leader>hr", ":Gitsigns reset_hunk<CR>", {desc = "[H]unk [R]eset"})
+vim.keymap.set("n", "<leader>hS", "<cmd>Gitsigns stage_buffer<CR>", {desc = "[H]unk [S]tage Buffer"})
+vim.keymap.set("n", "<leader>hR", "<cmd>Gitsigns reset_buffer<CR>", {desc = "[H]unk [R]eset Buffer"})
+vim.keymap.set("n", "<leader>hu", "<cmd>Gitsigns undo_stage_hunk<CR>", {desc = "[H]unk [U]ndo"})
+vim.keymap.set("n", "<leader>hp", "<cmd>Gitsigns preview_hunk<CR>", {desc = "[H]unk [P]review"})
+vim.keymap.set("n", "<leader>hb", "<cmd>lua require'gitsigns'.blame_line{full=true}<CR>", {desc = "[H]unk [B]lame"})
+vim.keymap.set("n", "<leader>tb", "<cmd>Gitsigns toggle_current_line_blame<CR>", {desc = "[T]oggle [B]lame"})
+vim.keymap.set("n", "<leader>tD", "<cmd>Gitsigns toggle_deleted<CR>", {desc = "[T]oggle [D]elete"})
 
 -- Misc. Mappings
 -- (normal mode)
