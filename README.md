@@ -1,9 +1,10 @@
 # Neovim Configuration
 
-This is the minimal Neovim configuration that I personally use.
+Just a simple neovim configuration.
 
 >[!NOTE]
-> This project is not updated regularly.
+> Sometimes this project is not updated regularly,
+> other times it is updated often.
 
 ## Primary Dependencies
 
@@ -11,16 +12,15 @@ This is the minimal Neovim configuration that I personally use.
 - [Rosé Pine](https://github.com/rose-pine/neovim)
 - [Alpha](https://github.com/goolord/alpha-nvim)
 - [Telescope](https://github.com/nvim-telescope/telescope.nvim)
+- [Neogit](https://github.com/NeogitOrg/neogit)
+- [Gitsigns](https://github.com/lewis6991/gitsigns.nvim)
 - [Lua Line](https://github.com/nvim-lualine/lualine.nvim)
 - [Fidget](https://github.com/j-hui/fidget.nvim)
-- [Blame](https://github.com/FabijanZulj/blame.nvim)
 - [Comment](https://github.com/numToStr/Comment.nvim)
 - [Indent Blankline](https://github.com/lukas-reineke/indent-blankline.nvim)
 - [Nvim Cmp](https://github.com/hrsh7th/nvim-cmp)
 - [Mason](https://github.com/williamboman/mason.nvim)
 - [LSP Config](https://github.com/neovim/nvim-lspconfig)
-- [Nvim Dap](https://github.com/mfussenegger/nvim-dap)
-- [Nvim Dap UI](https://github.com/rcarriga/nvim-dap-ui)
 
 ## Setup
 
