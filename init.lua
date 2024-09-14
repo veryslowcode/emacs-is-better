@@ -58,21 +58,7 @@ require("lazy").setup({
 
     -- Theme {{{
     --
-    { "rose-pine/neovim", name = "rose-pine",
-        config = function()
-            require("rose-pine").setup({
-               variant = "dawn",
-               styles = {
-                    italic = false
-               },
-               palette = {
-                    dawn = {
-                        gold = "#B67A28"
-                    }
-               }
-            })
-        end
-    },
+    { "savq/melange-nvim" },
     --
     -- }}}
 
@@ -350,7 +336,7 @@ vim.opt.scrolloff = 10
 vim.wo.number = true
 
 -- Theme
-vim.cmd.colorscheme "rose-pine"
+vim.cmd.colorscheme "melange"
 
 -- Window split
 vim.opt.splitright = true
