@@ -21,6 +21,7 @@ Just a simple neovim configuration.
 - [Nvim Cmp](https://github.com/hrsh7th/nvim-cmp)
 - [Mason](https://github.com/williamboman/mason.nvim)
 - [LSP Config](https://github.com/neovim/nvim-lspconfig)
+- [Treesitter](https://github.com/nvim-treesitter/nvim-treesitter)
 
 ## Setup
 

@@ -246,6 +246,23 @@ require("lazy").setup({
             require("ibl").setup()
         end
     },
+    {
+        "nvim-treesitter/nvim-treesitter",
+        config = function()
+            require("nvim-treesitter.configs").setup {
+                sync_install = false,
+                auto_install = false,
+                highlight = {
+                    enable = true,
+                    additional_vim_regex_highlighting = false,
+                },
+            }
+        end
+    },
+    {
+        "MeanderingProgrammer/render-markdown.nvim",
+        dependencies = { "nvim-treesitter/nvim-treesitter" }
+    },
     --
     -- }}}
 
