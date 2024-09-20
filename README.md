@@ -12,7 +12,7 @@ Just a simple neovim configuration.
 - [Rosé Pine](https://github.com/rose-pine/neovim)
 - [Alpha](https://github.com/goolord/alpha-nvim)
 - [Telescope](https://github.com/nvim-telescope/telescope.nvim)
-- [Neogit](https://github.com/NeogitOrg/neogit)
+- [Vim-Fugitive](https://github.com/tpope/vim-fugitive)
 - [Gitsigns](https://github.com/lewis6991/gitsigns.nvim)
 - [Lua Line](https://github.com/nvim-lualine/lualine.nvim)
 - [Fidget](https://github.com/j-hui/fidget.nvim)
