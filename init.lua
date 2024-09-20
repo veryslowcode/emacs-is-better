@@ -200,17 +200,7 @@ require("lazy").setup({
     -- Version Control {{{
     --
     {
-        "NeogitOrg/neogit",
-        dependencies = {
-            "nvim-lua/plenary.nvim",
-            "sindrets/diffview.nvim",
-            "nvim-telescope/telescope.nvim",
-        },
-        config = function()
-            require("neogit").setup {
-                disable_hint = true
-            }
-        end
+        "tpope/vim-fugitive",
     },
     {
         "lewis6991/gitsigns.nvim",
