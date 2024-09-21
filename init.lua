@@ -341,6 +341,7 @@ vim.opt.scrolloff = 10
 
 -- Set linenumbers
 vim.wo.number = true
+vim.o.cursorline = true
 
 -- Theme
 vim.cmd.colorscheme "melange"
