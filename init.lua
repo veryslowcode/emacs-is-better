@@ -492,6 +492,8 @@ vim.keymap.set("n", "<leader>tD", "<cmd>Gitsigns toggle_deleted<CR>", {desc = "[
 -- Misc. Mappings
 -- (normal mode)
 vim.keymap.set("n", "<leader>nhl", ":nohlsearch<CR>", {desc = "[N]o [H]igh[L]ight"})
+vim.keymap.set("n", "<leader>dos", ":ed ++ff=dos %<CR>", {desc = "Set and reopen file in [dos] format"})
+vim.keymap.set("n", "<leader>unix", ":ed ++ff=unix %<CR>", {desc = "Set and reopen file in [unix] format"})
 
 -- LSP Mappings
 -- (normal mode)
