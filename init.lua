@@ -294,6 +294,9 @@ require("lazy").setup({
     -- LSP {{{
     --
     {
+        "Hoffs/omnisharp-extended-lsp.nvim"
+    },
+    {
         "neovim/nvim-lspconfig",
         dependencies = {
             "williamboman/mason.nvim",
@@ -303,10 +306,71 @@ require("lazy").setup({
             require("mason").setup({
                 ui = { border = "rounded" }
             })
-            require("mason-lspconfig").setup()
+            require("mason-lspconfig").setup {
+                ensure_installed = {
+                    "lua_ls", "pylsp", "omnisharp", "jdtls",
+                }
+            }
             local lspconfig = require("lspconfig")
-            -- Configure languages
-            -- lspconfig.<LANG>.setup {}
+            local datadir = vim.fn.stdpath("data")
+
+            -- Lua {{{
+            --
+            lspconfig.lua_ls.setup {}
+            --
+            -- }}}
+
+            -- Python {{{
+            --
+            lspconfig.pylsp.setup {}
+            --
+            -- }}}
+
+            -- C# {{{
+            --
+            local pid = vim.fn.getpid()
+            local omnisharp = datadir .. "/mason/packages/omnisharp/libexec/OmniSharp.dll"
+            lspconfig.omnisharp.setup {
+                cmd = { "dotnet", omnisharp },
+                enable_roslyn_analyzers = true,
+                enable_import_completion = true,
+                organize_imports_on_format = false,
+                handlers = {
+                    ["textDocument/definition"] = require('omnisharp_extended').definition_handler,
+                    ["textDocument/typeDefinition"] = require('omnisharp_extended').type_definition_handler,
+                    ["textDocument/references"] = require('omnisharp_extended').references_handler,
+                    ["textDocument/implementation"] = require('omnisharp_extended').implementation_handler
+                }
+            }
+            --
+            -- }}}
+
+            -- Java {{{
+            --
+            local java_project_name = vim.fn.fnamemodify(vim.fn.getcwd(), ":p:h:t")
+            local java_workspace_dir = "<PATH_TO_WORKSPACE>" .. java_project_name
+
+            lspconfig.jdtls.setup {
+                cmd = {
+                    "java",
+                    '-Declipse.application=org.eclipse.jdt.ls.core.id1',
+                    '-Dosgi.bundles.defaultStartLevel=4',
+                    '-Declipse.product=org.eclipse.jdt.ls.core.product',
+                    '-Dlog.protocol=true',
+                    '-Dlog.level=ALL',
+                    '-Xmx1g',
+                    '--add-modules=ALL-SYSTEM',
+                    '--add-opens', 'java.base/java.util=ALL-UNNAMED',
+                    '--add-opens', 'java.base/java.lang=ALL-UNNAMED',
+                    "-javaagent:" .. datadir .. "/mason/packages/jdtls/lombok.jar",
+                    "-jar", datadir .. "/mason/packages/jdtls/plugins/org.eclipse.equinox.launcher_1.6.900.v20240613-2009.jar",
+                    "-configuration", datadir .. "/mason/packages/jdtls/config_<OS_HERE>",
+                    "-data", java_workspace_dir
+                }
+            }
+            --
+            -- }}}
+
         end
     },
     --
@@ -363,7 +427,6 @@ vim.opt.clipboard = "unnamedplus" -- Always copy to system clipboard
 -- Shell
 if vim.loop.os_uname().sysname == "Windows_NT" then
     vim.opt.shell = "powershell"
-    vim.opt.shellquote = "\""
     vim.opt.shellxquote = ""
     vim.opt.shellcmdflag = "-nologo -noprofile -ExecutionPolicy RemoteSigned -command"
 end
@@ -409,12 +472,13 @@ end
 
 -- Mappings {{{
 --
--- File/Explorer Mappings
+-- File/Explorer Mappings {{{
 -- (normal mode) 
--- Open explorer
 vim.keymap.set("n", "<leader>ex", ":Ex<CR>", {desc = "[Ex]plore files"})
+--
+-- }}}
 
--- Tab Mappings
+-- Tab Mappings {{{
 -- (normal mode) 
 vim.keymap.set("n", "<leader>tao", ":tabnew|Telescope file_browser<CR>", {desc = "[Ta]b [O]pen"})
 vim.keymap.set("n", "<leader>tto", ":tabnew|term<CR>", {desc = "[T]erminal [T]ab [O]pen"})
@@ -423,8 +487,10 @@ vim.keymap.set("n", "<leader>tab", ":1tabnext<CR>", {desc = "[Ta]b [B]eginning"}
 vim.keymap.set("n", "<leader>tae", ":tabnext$<CR>", {desc = "[Ta]b [E]nd"})
 vim.keymap.set("n", "<leader>tan", ":+tabnext<CR>", {desc = "[Ta]b [N]ext"}) 
 vim.keymap.set("n", "<leader>tap", ":-tabnext<CR>", {desc = "[Ta]b [P]revious"}) 
+--
+-- }}}
 
--- Window Mappings
+-- Window Mappings {{{
 -- (normal mode)
 vim.keymap.set("n", "<leader>wnh", "<c-w>n", {desc = "[W]indow [N]ew [H]orizontal"})
 vim.keymap.set("n", "<leader>wnv", ":vnew<CR>",{desc = "[W]indow [N]ew [V]ertical"})
@@ -438,18 +504,24 @@ vim.keymap.set("n", "<M-,>", "<c-w>5<", {desc = "Risize Window Right"})
 vim.keymap.set("n", "<M-.>", "<c-w>5>", {desc = "Resize Window Left"})
 vim.keymap.set("n", "<M-p>", "<c-w>+", {desc = "Risize Window Increase"})
 vim.keymap.set("n", "<M-o>", "<c-w>-", {desc = "Resize Window Decrease"})
+--
+-- }}}
 
--- Terminal Mappings
+-- Terminal Mappings {{{
 -- (normal mode)
 vim.keymap.set("t", "<esc><esc>", "<c-\\><c-n>", {desc = "Double escape exit terminal mode"})
+--
+-- }}}
 
--- Buffer Mappings
+-- Buffer Mappings {{{
 -- (normal mode)
 vim.keymap.set("n", "<leader>bp", ":bprevious<CR>", {desc = "[B]uffer [P]revious"})
 vim.keymap.set("n", "<leader>bn", ":bnext<CR>", {desc = "[B]uffer [N]ext"})
 vim.keymap.set("n", "<leader>bd", ":bdelete!<CR>", {desc = "[B]uffer [D]elete"})
+--
+-- }}}
 
--- Movement/Text Mappings
+-- Movement/Text Mappings {{{
 -- (normal mode)
 vim.keymap.set("n", "<leader>u", ":u<CR>", {desc = "[U]ndo"})
 vim.keymap.set("n", "<leader>r", ":red<CR>", {desc = "[R]edo"})
@@ -460,8 +532,10 @@ vim.keymap.set("n", "<leader>p", [["_d]]) -- Paste and keep
 -- (visual mode)
 vim.keymap.set("v", "<leader>u", ":m-2<CR>gv=gv", {desc = "Move line [U]p"})
 vim.keymap.set("v", "<leader>d", ":m+1<CR>gv=gv", {desc = "Move line [D]own"})
+--
+-- }}}
 
--- Telescope Mappings
+-- Telescope Mappings {{{
 -- (normal mode)
 local builtin = require("telescope.builtin")
 vim.keymap.set("n", "<leader>fb", find_buffers_override, {desc = "[F]ind [B]uffers"})
@@ -474,8 +548,10 @@ end, {desc = "[F]ile [S]earch"})
 
 vim.keymap.set("n", "<leader>fe", ":Telescope file_browser<CR>", {desc = "[F]ile [E]xplorer"})
 vim.keymap.set("n", "<leader>fec", ":Telescope file_browser path=%:p:h select_buffer=true<CR>", {desc = "[F]ile [E]xplorer [C]urrent"})
+--
+-- }}}
 
--- Version Control Mappings
+-- Version Control Mappings {{{
 -- (normal mode)
 vim.keymap.set("n", "<leader>ng", ":Neogit<CR>", {desc = "[N]eo [G]it"})
 vim.keymap.set("n", "<leader>hs", ":Gitsigns stage_hunk<CR>", {desc = "[H]unk [S]tage"})
@@ -487,14 +563,16 @@ vim.keymap.set("n", "<leader>hp", "<cmd>Gitsigns preview_hunk<CR>", {desc = "[H]
 vim.keymap.set("n", "<leader>hb", "<cmd>lua require'gitsigns'.blame_line{full=true}<CR>", {desc = "[H]unk [B]lame"})
 vim.keymap.set("n", "<leader>tb", "<cmd>Gitsigns toggle_current_line_blame<CR>", {desc = "[T]oggle [B]lame"})
 vim.keymap.set("n", "<leader>tD", "<cmd>Gitsigns toggle_deleted<CR>", {desc = "[T]oggle [D]elete"})
+--
+-- }}}
 
--- Misc. Mappings
+-- Misc. Mappings {{{
 -- (normal mode)
 vim.keymap.set("n", "<leader>nhl", ":nohlsearch<CR>", {desc = "[N]o [H]igh[L]ight"})
-vim.keymap.set("n", "<leader>dos", ":ed ++ff=dos %<CR>", {desc = "Set and reopen file in [dos] format"})
-vim.keymap.set("n", "<leader>unix", ":ed ++ff=unix %<CR>", {desc = "Set and reopen file in [unix] format"})
+--
+-- }}}
 
--- LSP Mappings
+-- LSP Mappings {{{
 -- (normal mode)
 vim.keymap.set("n", "<leader>gd", vim.lsp.buf.definition, {desc = "[G]oto [D]efinition"})
 vim.keymap.set("n", "<leader>gD", vim.lsp.buf.declaration, {desc = "[G]oto [D]eclaration"})
@@ -505,6 +583,9 @@ vim.keymap.set("n", "<leader>ds", builtin.lsp_document_symbols, {desc = "[D]ocum
 vim.keymap.set("n", "<leader>ws", builtin.lsp_dynamic_workspace_symbols, {desc = "[W]orkspace [S]ymbols"})
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, {desc = "[R]e[N]ame"})
 vim.keymap.set("n", "<leader>of", vim.diagnostic.open_float, {desc = "[O]pen [F]loat"})
+--
+-- }}}
+
 --
 -- }}}
 
