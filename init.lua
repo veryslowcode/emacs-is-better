@@ -365,8 +365,7 @@ if vim.loop.os_uname().sysname == "Windows_NT" then
     vim.opt.shell = "powershell"
     vim.opt.shellquote = "\""
     vim.opt.shellxquote = ""
-    vim.opt.shellredir = "2>&1 | Out-File -Encoding UTF8 %s"
-    vim.opt.shellpipe = "2>&1 | Out-File -Encoding UTF8 %s"
+    vim.opt.shellcmdflag = "-nologo -noprofile -ExecutionPolicy RemoteSigned -command"
 end
 vim.api.nvim_command("autocmd TermOpen * setlocal nonumber")
 vim.api.nvim_command("autocmd TermEnter * setlocal signcolumn=no")
