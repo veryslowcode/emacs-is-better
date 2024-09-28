@@ -42,7 +42,3 @@ config['init_options'] = {
 }
 
 require('jdtls').start_or_attach(config)
-
-
--- "-jar", "<DEV>/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/plugins/org.eclipse.equinox.launcher_<VERSION>.jar",
--- "-configuration", "<DEV>/eclipse.jdt.ls/org.eclipse.jdt.ls.product/target/repository/config_win",
