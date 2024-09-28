@@ -123,11 +123,13 @@ require("lazy").setup({
         config = function()
             require("telescope").setup({
                 defaults = {
+                    layout_strategy = "bottom_pane",
+                    sorting_strategy = "ascending",
+                    border = true,
                     layout_config = {
-                        vertical = { width = 0.75 },
+                        height = 0.5,
                         preview_cutoff = 1
                     },
-                    layout_strategy = "vertical",
                     path_display = {
                         "truncate"
                     },
