@@ -41,4 +41,9 @@ config['init_options'] = {
   bundles = bundles;
 }
 
-require('jdtls').start_or_attach(config)
+local jdtls = require("jdtls")
+jdtls.start_or_attach(config)
+
+-- Additional keymaps for debugging tests
+vim.keymap.set("n", "<leader>tC", jdtls.test_class, {desc = "[T]est [C]lass"})
+vim.keymap.set("n", "<leader>tM", jdtls.test_nearest_method, {desc = "[T]est Nearest [M]ethod"})
