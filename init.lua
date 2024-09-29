@@ -388,9 +388,17 @@ require("lazy").setup({
 
                 -- C# {{{
                 --
+                local get_netcoredbg = function()
+                    if vim.loop.os_uname().sysname == "Windows_NT" then
+                        return "/mason/packages/netcoredbg/netcoredbg/netcoredbg.exe"
+                    else
+                        return "/mason/packages/netcoredbg/netcoredbg"
+                    end
+                end
+
                 dap.adapters.coreclr = {
                     type = 'executable',
-                    command = datadir .. "/mason/packages/netcoredbg/netcoredbg/netcoredbg.exe",
+                    command = datadir .. get_netcoredbg(),
                     args = { '--interpreter=vscode' }
                 }
 
@@ -406,7 +414,7 @@ require("lazy").setup({
                             "--environment=Development",
                         },
                         program = function()
-                            return vim.fn.input("Path -> ", vim.fn.getcwd(), "file")
+                            return vim.fn.input("Path > ", vim.fn.getcwd(), "file")
                         end
                     },
                     {
@@ -415,7 +423,7 @@ require("lazy").setup({
                         request = "attach",
                         console = "integratedTerminal",
                         processId = function()
-                            return vim.fn.input("PID -> ")
+                            return vim.fn.input("PID > ")
                         end,
                     }
                 }
@@ -550,8 +558,8 @@ vim.keymap.set("n", "<leader>wh", "<c-w>h", { desc = "[W]indow left" })
 vim.keymap.set("n", "<leader>wl", "<c-w>l", { desc = "[W]indow right" })
 vim.keymap.set("n", "<leader>wj", "<c-w>j", { desc = "[W]indow down" })
 vim.keymap.set("n", "<leader>wk", "<c-w>k", { desc = "[W]indow up" })
-vim.keymap.set("n", "<M-,>", "<c-w>5<", { desc = "Risize Window Right" })
-vim.keymap.set("n", "<M-.>", "<c-w>5>", { desc = "Resize Window Left" })
+vim.keymap.set("n", "<M-,>", "<c-w>5>", { desc = "Risize Window Right" })
+vim.keymap.set("n", "<M-.>", "<c-w>5<", { desc = "Resize Window Left" })
 vim.keymap.set("n", "<M-p>", "<c-w>+", { desc = "Risize Window Increase" })
 vim.keymap.set("n", "<M-o>", "<c-w>-", { desc = "Resize Window Decrease" })
 --
