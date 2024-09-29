@@ -397,9 +397,9 @@ require("lazy").setup({
                 end
 
                 dap.adapters.coreclr = {
-                    type = 'executable',
+                    type = "executable",
                     command = datadir .. get_netcoredbg(),
-                    args = { '--interpreter=vscode' }
+                    args = { "--interpreter=vscode" }
                 }
 
                 dap.configurations.cs = {
