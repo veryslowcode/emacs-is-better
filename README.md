@@ -9,7 +9,7 @@ Just a simple neovim configuration.
 ## Primary Dependencies
 
 - [Lazy.nvim](https://github.com/folke/lazy.nvim)
-- [Rosé Pine](https://github.com/rose-pine/neovim)
+- [Catppuccin](https://github.com/catppuccin/nvim)
 - [Alpha](https://github.com/goolord/alpha-nvim)
 - [Telescope](https://github.com/nvim-telescope/telescope.nvim)
 - [Vim-Fugitive](https://github.com/tpope/vim-fugitive)
