@@ -58,7 +58,30 @@ require("lazy").setup({
 
         -- Theme {{{
         --
-        { "savq/melange-nvim" },
+        {
+            "catppuccin/nvim",
+            name = "catppuccin",
+            priority = 1000,
+            config = function()
+                require("catppuccin").setup({
+                    flavour = "mocha",
+                    background = {
+                        dark = "mocha",
+                    },
+                    styles = {
+                        comments = { "italic" },
+                        keywords = { "bold" },
+                        conditionals = {},
+                    },
+                    default_integrations = true,
+                    integrations = {
+                        cmp = true,
+                        gitsigns = true,
+                        treesitter = true,
+                    }
+                })
+            end
+        },
         --
         -- }}}
 
@@ -466,7 +489,7 @@ vim.wo.number = true
 vim.o.cursorline = true
 
 -- Theme
-vim.cmd.colorscheme "melange"
+vim.cmd.colorscheme "catppuccin"
 
 -- Window split
 vim.opt.splitright = true
