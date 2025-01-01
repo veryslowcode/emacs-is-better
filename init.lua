@@ -323,9 +323,6 @@ require("lazy").setup({
             "Hoffs/omnisharp-extended-lsp.nvim"
         },
         {
-            "mfussenegger/nvim-jdtls"
-        },
-        {
             "neovim/nvim-lspconfig",
             dependencies = {
                 "williamboman/mason.nvim",
@@ -337,7 +334,7 @@ require("lazy").setup({
                 })
                 require("mason-lspconfig").setup {
                     ensure_installed = {
-                        "lua_ls", "pylsp", "omnisharp", "jdtls",
+                        "lua_ls", "pylsp", "omnisharp",
                     }
                 }
                 local lspconfig = require("lspconfig")
@@ -386,73 +383,8 @@ require("lazy").setup({
                 }
                 --
                 -- }}}
+            
             end
-        },
-        --
-        -- }}}
-
-        -- Debugging {{{
-        --
-        {
-            "mfussenegger/nvim-dap",
-            dependencies = {
-                -- Debuggers
-                "mfussenegger/nvim-dap-python"
-            },
-            config = function()
-                local dap = require "dap"
-                local datadir = vim.fn.stdpath("data")
-
-                -- Python {{{
-                --
-                require("dap-python").setup("python")
-                --
-                -- }}}
-
-                -- C# {{{
-                --
-                local get_netcoredbg = function()
-                    if vim.loop.os_uname().sysname == "Windows_NT" then
-                        return "/mason/packages/netcoredbg/netcoredbg/netcoredbg.exe"
-                    else
-                        return "/mason/packages/netcoredbg/netcoredbg"
-                    end
-                end
-
-                dap.adapters.coreclr = {
-                    type = "executable",
-                    command = datadir .. get_netcoredbg(),
-                    args = { "--interpreter=vscode" }
-                }
-
-                dap.configurations.cs = {
-                    {
-                        type = "coreclr",
-                        name = "Launch",
-                        request = "launch",
-                        env = "ASPNETCORE_ENVIRONMENT=Development",
-                        console = "integratedTerminal",
-                        args = {
-                            "--urls=http://localhost:5002",
-                            "--environment=Development",
-                        },
-                        program = function()
-                            return vim.fn.input("Path > ", vim.fn.getcwd(), "file")
-                        end
-                    },
-                    {
-                        type = "coreclr",
-                        name = "Attach",
-                        request = "attach",
-                        console = "integratedTerminal",
-                        processId = function()
-                            return vim.fn.input("PID > ")
-                        end,
-                    }
-                }
-                --
-                -- }}}
-            end,
         },
         --
         -- }}}
@@ -667,48 +599,6 @@ vim.keymap.set("n", "<leader>ds", builtin.lsp_document_symbols, { desc = "[D]ocu
 vim.keymap.set("n", "<leader>ws", builtin.lsp_dynamic_workspace_symbols, { desc = "[W]orkspace [S]ymbols" })
 vim.keymap.set("n", "<leader>rn", vim.lsp.buf.rename, { desc = "[R]e[N]ame" })
 vim.keymap.set("n", "<leader>of", vim.diagnostic.open_float, { desc = "[O]pen [F]loat" })
---
--- }}}
-
--- Debug Mappings {{{
--- (normal mode)
-local dap = require("dap")
-local widgets = require("dap.ui.widgets")
-vim.keymap.set("n", "<leader>ct", dap.continue, { desc = "[C]on[t]inue" })
-vim.keymap.set("n", "<leader>si", dap.step_into, { desc = "[S]tep [I]nto" })
-vim.keymap.set("n", "<leader>so", dap.step_over, { desc = "[S]tep [O]ver" })
-vim.keymap.set("n", "<leader>st", dap.step_out, { desc = "[S]tep Ou[t]" })
-vim.keymap.set("n", "<leader>tB", dap.toggle_breakpoint, { desc = "[T]oggle [B]reakpoint" })
-
-vim.keymap.set("n", "<leader>tbc",
-    function()
-        dap.set_breakpoint(vim.fn.input "Breakpoint condition: ")
-    end,
-    { desc = "[T]oggle [B]reakpoint [C]ondition" })
-
-vim.keymap.set("n", "<leader>rl",
-    function()
-        dap.run_last()
-    end,
-    { desc = "[R]un [L]ast" })
-
-vim.keymap.set("n", "<leader>pr",
-    function()
-        widgets.preview()
-    end,
-    { desc = "[Pr]eview" })
-
-vim.keymap.set("n", "<leader>sc",
-    function()
-        widgets.centered_float(widgets.scopes)
-    end,
-    { desc = "[Sc]opes" })
-
-vim.keymap.set("n", "<leader>fr",
-    function()
-        widgets.centered_float(widgets.frames)
-    end,
-    { desc = "[Fr]ames" })
 --
 -- }}}
 
