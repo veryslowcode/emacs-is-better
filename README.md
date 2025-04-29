@@ -18,3 +18,6 @@ Clone into the applicable location:
 
 > Note \
 > If already cloned, just update submodules with: `git submodule update --init --recursive`
+
+> Also note \
+> It is suggested to install `ripgrep` for `Mini.Pick` plugin.
