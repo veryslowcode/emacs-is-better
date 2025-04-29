@@ -1,15 +1,20 @@
 # Neovim Configuration
 
-
-Slim Neovim configuration, for environments where plugins can't be used.
+Simple Neovim configuration, no bloat.
 
 ## Setup
 
-Just clone this repo as `nvim` into the directory that Neovim is expecting your 
-configuration files to be. 
+This configuration uses `submodules` as a means of dependency management.
+
+Ensure you clone recursively: `git clone --recursive https://github.com/veryslowcode/emacs-is-better nvim`
+
+Clone into the applicable location:
 
 ### Linux/MacOS
 `~/.config/nvim`
 
 ### Windows
 `$HOME\AppData\Local\nvim`
+
+> Note \
+> If already cloned, just update submodules with: `git submodule update --init --recursive`

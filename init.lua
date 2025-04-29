@@ -23,3 +23,39 @@ vim.g.netrw_liststyle = 3
 
 -- }}}
 
+-- Plugins {{{
+
+-- Mini.Pick
+-- Source: https://github.com/echasnovski/mini.nvim/blob/main/lua/mini/pick.lua
+local pick = require("plugins.pick")
+pick.setup()
+
+vim.keymap.set(
+  "n",
+  "<leader>ff",  -- [F]ind [F]iles
+  function()
+    pick.builtin.files()
+  end,
+  { desc = ":Pick files" }
+)
+
+vim.keymap.set(
+  "n",
+  "<leader>fb", -- [F]ind [B]uffers
+  function()
+    pick.builtin.buffers()
+  end,
+  { desc = ":Pick buffers" }
+)
+
+vim.keymap.set(
+  "n",
+  "<leader>fs", -- [F]ind [S]tring
+  function()
+    pick.builtin.grep_live()
+  end,
+  { desc = ":Pick grep_live" }
+)
+
+-- }}}
+
